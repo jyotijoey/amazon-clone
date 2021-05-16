@@ -1,19 +1,37 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { auth } from './firebox';
 import "./Login.css";
 
 function Login() {
+    const history= useHistory();
     const [email, setEmail]= useState("");
     const [password, setPassword]= useState("");
 
     const signIn= e => {
         e.preventDefault();
-        //firbasse login
+        //firbase login
+        auth.signInWithEmailAndPassword(email, password)
+        .then(auth => {
+            history.push('/')
+        })
+        .catch(error => alert(error.message));
+        
     }
 
-    const register= e => {
+    const register = e => {
+        console.log("clicked");
         e.preventDefault();
-        //firebase register
+        
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((auth) => {
+                // it successfully created a new user with email and password
+                if (auth) {
+                    history.push("/");
+                }
+            })
+            .catch(error => alert(error.message))
     }
 
     return (
@@ -31,7 +49,7 @@ function Login() {
                     <input type="text" value={email} onChange={e => setEmail(e.target.value)}/>
 
                     <h5>Password</h5>
-                    <input type="password" value={password} onChange={p => setPassword(p.target.password)} />
+                    <input type="password" value={password} onChange={p => setPassword(p.target.value)} />
 
                     <button type="submit" onClick={signIn} className="login_signInButton">
                     Sign In
@@ -43,7 +61,7 @@ function Login() {
                     PLease see our privacy notice, our cookies notice and our internet based ads notice for more info.
                 </p>
 
-                <button type="submit" onClick={register} className="login_registerButton">Create your Amazon Account</button>
+                <button onClick={register} className="login_registerButton">Create your Amazon Account</button>
 
         </div>
         </div>

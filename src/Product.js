@@ -7,7 +7,7 @@ function Product({id, title, image, price, rating}) {
 
    const addToBasket = () =>{
        //dispatch item to the data layer
-       console.log("this is the item in the basket", basket);
+    //    console.log("this is the item in the basket", basket);
        dispatch({
            type: "ADD_TO_BASKET",
            item: {
