@@ -4,7 +4,7 @@ import Searchicon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from "react-router-dom";
 import { useStateValue } from './StateProvider';
-import { auth } from './firebox';
+import { auth } from './firebase';
 
 function Header() {
 
